@@ -8,11 +8,11 @@ const CardRenderComponent:React.FC<CardProps>=({title, description})=>{
     return(
         <div>
             <Card className="w-full max-w-md shadow-md border border-gray-300">
-      <CardHeader>
-        <CardTitle className="text-xl font-semibold">{title}</CardTitle>
-        <CardDescription className="text-gray-500">{description}</CardDescription>
-      </CardHeader>
-    </Card>
+                <CardHeader>
+                    <CardTitle className="text-xl font-semibold">{title}</CardTitle>
+                    <CardDescription className="text-gray-500">{description}</CardDescription>
+                </CardHeader>
+            </Card>
         </div>
     );
 }
