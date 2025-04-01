@@ -8,13 +8,16 @@ type Todo={
   description:string;
 }
 function App() {
-  const [todos, setTodos]=useState<Todo[]>([])
+  const [todos, setTodos]=useState<Todo[]>([]);
+  function HandleDeleteTodo(index:number){
+    setTodos(todos.filter((_,i)=>i!=index));
+  }
   return (
     <div className='w-full min-h-screen bg-gray-600 text-white'>
       <AddTodoComponent setTodos={setTodos} todos={todos}/>
       <div className=''>
         {todos.map((todo,index)=>(
-          <CardRenderComponent key={index} title={todo.title} description={todo.description}/>
+          <CardRenderComponent key={index} title={todo.title} description={todo.description} deleteTodo={()=>{HandleDeleteTodo(index)}}/>
         ))}
       </div>
     </div>
