@@ -18,6 +18,7 @@ export const IndexeddbContextProvider= ({children}:{children:ReactNode})=>{
 
     const AddNewTodo=async (todo:Todo)=>{
         await AddToDb(todo);
+        setTodos((prev)=>[...prev,todo]);
     }
 
     return(

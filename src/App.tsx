@@ -12,11 +12,13 @@ type Todo={
   description:string;
 }
 function App() {
-  const {AddNewTodo}=useFetchTodos();
-  const [todos, setTodos]=useState<Todo[]>([]);
+  const {AddNewTodo, todos, setTodos}=useFetchTodos();
+  // const [todos, setTodos]=useState<Todo[]>([]);
+
   function HandleDeleteTodo(index:number){
      setTodos(todos.filter((_,i)=>i!=index));
   }
+
   async function HandleAddTodo(todo:Todo){
     // await AddToDb(todo)
     // .then(()=>setTodos((prev)=>[...prev, todo]))
