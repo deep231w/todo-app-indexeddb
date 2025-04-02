@@ -10,8 +10,8 @@ type Props={
     setTodos:(todos:Todo)=>void;
     todos:Todo[];
 }
-export default function AddTodoComponent({setTodos,todos}:Props){
-    
+export default function AddTodoComponent({setTodos}:Props){
+
     const [title, setTitle]=useState("");
     const [description, setDescription]=useState("");
 
