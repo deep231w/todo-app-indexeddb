@@ -3,21 +3,25 @@ import { useState } from 'react'
 import './App.css'
 import AddTodoComponent from './components/addTodoComponent'
 import CardRenderComponent from './components/cardRenderComponent'
-import { AddTodoToIndexeddb as AddToDb} from './utils/indexeddb'
+// import { AddTodoToIndexeddb as AddToDb} from './utils/indexeddb'
+import { useFetchTodos } from './context/IndexeddbContext'
+
 type Todo={
   id:number,
   title:string;
   description:string;
 }
 function App() {
+  const {AddNewTodo}=useFetchTodos();
   const [todos, setTodos]=useState<Todo[]>([]);
   function HandleDeleteTodo(index:number){
      setTodos(todos.filter((_,i)=>i!=index));
   }
   async function HandleAddTodo(todo:Todo){
-    await AddToDb(todo)
-    .then(()=>setTodos((prev)=>[...prev, todo]))
-    .catch(console.error);
+    // await AddToDb(todo)
+    // .then(()=>setTodos((prev)=>[...prev, todo]))
+    // .catch(console.error);
+    await AddNewTodo(todo);
   }
   return (
     <div className='w-full min-h-screen bg-gray-600 text-white'>

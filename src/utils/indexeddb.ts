@@ -30,13 +30,13 @@ export function OpenDB():Promise<IDBDatabase>{
     })
 }
 
-export function AddTodoToIndexeddb(todos:Todo):Promise<void>{
-    return new Promise(async(reject,resolve)=>{
+export function AddTodoToIndexeddb(todo:Todo):Promise<void>{
+    return new Promise(async(resolve,reject)=>{
         const db= await OpenDB();
         const transaction= db.transaction("todos","readwrite");
         const store= transaction.objectStore("todos");
-
-        const request= store.add(todos);
+        console.log("todo in indexeddb.ts:",todo)
+        const request= store.add(todo);
 
         request.onsuccess=()=>{
             console.log("from success");
