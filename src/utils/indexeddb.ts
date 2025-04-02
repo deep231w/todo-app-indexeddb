@@ -49,3 +49,22 @@ export function AddTodoToIndexeddb(todo:Todo):Promise<void>{
         }
     })
 }
+
+export function FetchTodoFromIndexeddb():Promise<Todo[]>{
+    return new Promise(async (resolve, reject)=>{
+        const db= await OpenDB();
+        const transaction= db.transaction("todos","readonly")
+        const store= transaction.objectStore("todos");
+        const request= store.getAll();
+
+        request.onsuccess=(e:any)=>{
+            console.log("from success");
+            resolve(e.target.result);
+        }
+
+        request.onerror=(e:any)=>{
+            console.log("from error");
+            reject(e.target.reject);
+        }
+    })
+}
