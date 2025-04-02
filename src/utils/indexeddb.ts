@@ -69,19 +69,20 @@ export function FetchTodoFromIndexeddb():Promise<Todo[]>{
     })
 }
 
-export function DeleteTodoFromIndexeddb({id}:{id:number}):Promise<void>{
+export function DeleteTodoFromIndexeddb(id:number):Promise<void>{
     return new Promise(async (resolve, reject)=>{
         const db= await OpenDB();
         const transaction= db.transaction("todos","readwrite");
-        const request= transaction.objectStore("todos").delete(id);
+        const store= transaction.objectStore("todos")
+        const request= store.delete(id);
 
-        request.onsuccess=(e:any)=>{
-            console.log("from success",e.target.result);
+        request.onsuccess=()=>{
+            console.log(`Todo with ID ${id} deleted successfully from IndexedDB.`);
             resolve();
         }
         request.onerror=(e:any)=>{
-            console.log("from error", e.target.reject);
-            reject(e.target.result);
+            console.log("from error", e.target.error);
+            reject(e.target.error);
         }
     })
 }

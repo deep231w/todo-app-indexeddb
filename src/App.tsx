@@ -2,6 +2,7 @@ import './App.css'
 import AddTodoComponent from './components/addTodoComponent'
 import CardRenderComponent from './components/cardRenderComponent'
 import { useFetchTodos } from './context/IndexeddbContext'
+import { DeleteTodoFromIndexeddb as DeleteTodo } from './utils/indexeddb'
 
 type Todo={
   id:number,
@@ -11,8 +12,10 @@ type Todo={
 function App() {
   const {AddNewTodo, todos, setTodos}=useFetchTodos();
 
-  function HandleDeleteTodo(index:number){
-     setTodos(todos.filter((_,i)=>i!=index));
+  async function HandleDeleteTodo(id:number){
+    
+    await DeleteTodo(id);
+    setTodos(todos.filter((todo)=>todo.id!=id));
   }
 
   async function HandleAddTodo(todo:Todo){
@@ -23,8 +26,8 @@ function App() {
     <div className='w-full min-h-screen bg-gray-600 text-white'>
       <AddTodoComponent setTodos={HandleAddTodo} todos={todos}/>
       <div className=''>
-        {todos.map((todo,index)=>(
-          <CardRenderComponent key={index} title={todo.title} description={todo.description} deleteTodo={()=>{HandleDeleteTodo(index)}}/>
+        {todos.map((todo,id)=>(
+          <CardRenderComponent key={id} title={todo.title} description={todo.description} deleteTodo={()=>HandleDeleteTodo(todo.id)}/>
         ))}
       </div>
     </div>
