@@ -56,7 +56,7 @@ export function FetchTodoFromIndexeddb():Promise<Todo[]>{
         const transaction= db.transaction("todos","readonly")
         const store= transaction.objectStore("todos");
         const request= store.getAll();
-
+        console.log(store.getAll());
         request.onsuccess=(e:any)=>{
             console.log("from success");
             resolve(e.target.result);
