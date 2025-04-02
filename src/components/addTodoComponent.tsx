@@ -1,16 +1,17 @@
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import {AddTodoGToIndexeddb as AddToDb} from "@/utils/indexeddb";
 type Todo={
+    id:number,
     title:string;
     description:string;
 }
 type Props={
-    setTodos:(todos:Todo[])=>void;
+    setTodos:(todos:Todo)=>void;
     todos:Todo[];
 }
 export default function AddTodoComponent({setTodos,todos}:Props){
+    
     const [title, setTitle]=useState("");
     const [description, setDescription]=useState("");
 
@@ -19,8 +20,10 @@ export default function AddTodoComponent({setTodos,todos}:Props){
 
         console.log("title",title);
         console.log("description",description)
-        const newTodo={title,description}
-        setTodos([...todos, newTodo]);
+
+        const newTodo={id:Date.now() ,title,description}
+
+        setTodos(newTodo);
         setTitle("");
         setDescription("");
     }
